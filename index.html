@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Assignment 1 Building a Scene : Advanced Programming">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Assignment 1 Building a Scene</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+         
+
+          <h1 id="project_title" style="text-align:left;font-size:70px">Harsh Light</h1>
+          <h2 id="project_tagline" style="text-align:right;">Real-time Global Illumination Renderer</br>base on voxel cone tracing</h2>
+		  <p id="project_tagline" style="text-align:right">
+		      <a href="http://jiawenl.github.io/" target="_blank" style="text-decoration:none; color:#ffffff">Jiawen Liang(jiawenl)</a>, 
+			  <a href="http://www.mangosister.me/" target="_blank" style="text-decoration:none; color:#ffffff">Yang Zhou(yzhou4)</br></p>		  
+		  <div id="menuholder">
+		      <ul id="menu">
+			      <li><a href="index.html#" style="color: #b2b2b2; text-align:center;">Proposal</a></li>
+				  <li><a href="index.html#" style="color: #f2f2f2; text-align:center;">&nbsp&nbsp&nbsp&nbspLog</a></li>
+				  <li><a href="index.html#" style="color: #f2f2f2; text-align:center;">Final&nbsp&nbspReport</a></li>				  
+			  </ul>
+		  </div>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>SUMMARY</h3>
+		<p>We are going to implement a real-time global illumination renderer/solution based on hierarchical voxel octree representation of the scene and efficient radiance estimation based on voxel cone tracing.</p>
+		
+		<h3>BACKGROUND</h3>
+		<p>We are going to implement a real-time global illumination renderer/solution based on hierarchical voxel octree representation of the scene and efficient radiance estimation based on voxel cone tracing.</p>
+		
+		<h3>THE CHALLENGE</h3>
+        <p><strong>Data Representation and Query on GPU:</strong> &nbspIn order to efficiently estimate indirect illumination, a hierarchical voxel tree representation of the scene is construct entirely on GPU which also supports dynamic modification. Each pixel needs to get access to the scene and lighting information efficiently through the structure to perform radiance estimation.</p>
+        <p><strong>Computation Time:</strong> &nbspWe would like to achieve interactable frame rate on large scenes with complex geometry. Furthermore, our solution supports dynamic objects and lights.</p>
+        <p><strong>Divergence:</strong> &nbspAlthough it is generally feasible to parallelize raytracing-like operation, the difference of paths of light often ends up divergence and different memory access patterns.</p>
+		
+		<h3>RESOURCES</h3>
+		<p>We will start the project from scratch. </p>
+		<p>The deliverable will be running on desktop or laptop (either Windows or Linux) with a moderate CUDA-capable graphics card. The project is implemented using CUDA and OpenGL.</p>
+		<p>References are listed at the bottom.</p>
+		
+		<h3>GOALS AND DELIVERABLES</h3>
+		<p>The deliverable will be a real-time rendering application that supports limited global illumination on large scenes on desktop. More specifically, it supports:</p>
+		<ul style="list-style-type:disc">
+		    <li>Indirect Lighting (2 bounces or more indirect lighting)</li>
+			<li>Dynamic Objects</li>
+			<li>Dynamic Lights</li>
+			<li>Real Time Performance on Large Scene</li>
+		</ul>
+		
+		<h3>PLATFORM CHOICE</h3>
+		<p>The project will be implemented in C++ and CUDA, with OpenGL.</p>
+        <p>The platform will be desktop(either Windows or Linux) with a moderate CUDA-capable graphics card.</p>
+		
+		<h3>SCHEDULE</h3>
+		<ul style="list-style-type:disc">
+		    <li><strong>Nov.1 - Nov.7</strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspResearch, Set up environment: C++, CUDA, OpenGL interop, model and texture import, etc.</li>
+			<li><strong>Nov.8 - Nov.14</strong> &nbsp&nbsp&nbsp&nbsp&nbspDesign data structure for tree node and cone; Implement Sparse voxel octree hierarchy construction.</li>
+			<li><strong>Nov.15 - Nov.21</strong> &nbsp&nbspUpdate sparse voxel octree hierarchy construction and voxel cone tracing.</br> -> Expect to render voxelized scene.</li>
+			<li><strong>Nov.22 - Nov.26</strong> &nbsp&nbspUpdate voxel cone tracing; Add support to dynamic objects and lights.</li>
+			<li><strong>Nov.27 - Dec.3</strong> &nbsp&nbsp&nbsp&nbsp&nbspDebug and Optimize.</br> -> Expect to have a functional version.</li>
+			<li><strong>Dec.4 - Dec.10</strong> &nbsp&nbsp&nbsp&nbsp&nbspCreate an interactive demo. Debug and Optimize.</br> -> Expect to have a complete version.</li>
+			<li><strong>Dec.11 - Dec.13</strong> &nbsp&nbsp&nbspWrite final Report and preapre for presentation.</li>
+		</ul>
+		
+		<h3>REFERENCE</h3>
+        <p>Crassin, Cyril, et al. "Interactive indirect illumination using voxel cone tracing." Computer Graphics Forum. Vol. 30. No. 7. Blackwell Publishing Ltd, 2011.</p>
+		<p>Laine, Samuli, and Tero Karras. "Efficient sparse voxel octrees." IEEE Transactions on Visualization and Computer Graphics 17.8 (2011): 1048-1059.</p>
+		<p>Crassin, Cyril, et al. "Gigavoxels: Ray-guided streaming for efficient and detailed voxel rendering." Proceedings of the 2009 symposium on Interactive 3D graphics and games. ACM, 2009.</p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CMU 15618 Fall2016 Course Project, Harsh Light, Jiawen Liang, Yang Zhou</p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
