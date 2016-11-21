@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Assignment 1 Building a Scene : Advanced Programming">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>HarshLight - Check Point</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+         
+
+          <h1 id="project_title" style="text-align:left;font-size:70px">Harsh Light</h1>
+          <h2 id="project_tagline" style="text-align:right;">Real-time Global Illumination Renderer</br>based on Voxel Cone Tracing</h2>
+		  <p id="project_tagline" style="text-align:right">
+		      <a href="http://jiawenl.github.io/" target="_blank" style="text-decoration:none; color:#ffffff">Jiawen Liang(jiawenl)</a>, 
+			  <a href="http://www.mangosister.me/" target="_blank" style="text-decoration:none; color:#ffffff">Yang Zhou(yzhou4)</br></p>		  
+		  <div id="menuholder">
+		      <ul id="menu">
+			      <li><a href="proposal.html#" style="color: #f2f2f2; text-align:center;">Proposal</a></li>
+				  <li><a href="log.html#" style="color: #f2f2f2; text-align:center;">&nbsp&nbsp&nbsp&nbspLog</a></li>
+				  <li><a href="checkpoint.html#" style="color: #b2b2b2; text-align:center;">CheckPoint</a></li>
+				  <li><a href="index.html#" style="color: #f2f2f2; text-align:center;">&nbsp&nbspFinalReport</a></li>				  
+			  </ul>
+		  </div>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+	    <p style="font-size:50px">Check Point</h1>
+	  
+        <h3>PROGRESS</h3>
+		<p>By now, we finished a simple renderer with resterization algorithm and voxel octree construction. </br>
+		In the first week, we did more research for details from different materials, correct some wrong consept we have in mind, and set up basic environment with C++, OpenGL which could render triangles. Then we finished our own framework which could render the scene with material and support moving camera. After that, we implemented the rasterization algorithm and the basic sparse voxel octree hierarchy construction. </br>
+		You can find a screen shot of a voxelized scene below:
+		</p>
+		<img src="images/rasterization_scene_example.jpg" style="text-align:middle;" width="100%" height="100%"> </img>
+		
+		<h3>GOALS and DELIVERABLES</h3>
+		<p>We are a little behind our plan right now because the some parts that are not described in the paper is more complicated than what we thought at first. We haven't started the voxel cone tracing right now. Never the less, we still achieved our goal to render a voxelized scene.
+		</p><p>
+		For next three weeks, we plan to implement a light kernel structure and voxel cone tracing in one and a half week. Then, we will debug, optimize, create a real-time interactive demo for final presentation. We may put dynamic lights optional right now.
+		</p><p>
+		We still believe we can have a real-time rendering application that supports limited global illumination on large scenes.
+		</p><p>
+		
+		<h3>SCHEDULE</h3>
+		<ul style="list-style-type:disc">
+			<li><strong>Nov.22 - Nov.26</strong></br>
+				&nbsp&nbspUpdate voxel cone tracing; Add support to dynamic objects and lights.</br>
+
+&nbsp&nbsp Parallel octree construction with CUDA.</br>
+&nbsp&nbsp Lights info count, save, pass, combine on the octree.</br>
+&nbsp&nbsp Dynamic objects support.</br>
+
+&nbsp&nbsp Approximate Voxel Cone Tracing.</br>
+&nbsp&nbsp Ambient Occlusion.</br>
+&nbsp&nbsp Capturing Illumination.</br>
+
+
+&nbsp&nbsp Debug and Optimize.</br>
+&nbsp&nbsp Create an interactive demo.</br>
+&nbsp&nbsp Write final Report and preapre for presentation.</br>
+				
+			</li>
+			<li><strong>Nov.27 - Dec.3</strong></br>
+				&nbsp&nbsp&nbsp&nbsp&nbspDebug and Optimize.</br> -> Expect to have a functional version.
+			</li>
+			<li><strong>Dec.4 - Dec.10</strong></br>
+				&nbsp&nbsp&nbsp&nbsp&nbspCreate an interactive demo. Debug and Optimize.</br> -> Expect to have a complete version.
+			</li>
+			<li><strong>Dec.11 - Dec.13</strong> &nbsp&nbsp&nbspWrite final Report and preapre for presentation.</li>
+		</ul>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CMU 15618 Fall2016 Course Project, Harsh Light, Jiawen Liang, Yang Zhou</p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+  </body>
+</html>
