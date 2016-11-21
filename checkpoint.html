@@ -39,47 +39,62 @@
       <section id="main_content" class="inner">
 	    <p style="font-size:50px">Check Point</h1>
 	  
-        <h3>PROGRESS</h3>
-		<p>By now, we finished a simple renderer with resterization algorithm and voxel octree construction. </br>
-		In the first week, we did more research for details from different materials, correct some wrong consept we have in mind, and set up basic environment with C++, OpenGL which could render triangles. Then we finished our own framework which could render the scene with material and support moving camera. After that, we implemented the rasterization algorithm and the basic sparse voxel octree hierarchy construction. </br>
-		You can find a screen shot of a voxelized scene below:
+        <h2>PROGRESS SO FAR</h2>
+        <h3>FRAMEWORK SETUP</h3>
+		<p>We have set up the graphics application framework on OpenGL and CUDA, including model importing, texture importing, mesh VBO/VAO/EBO binding, shader compiling and linking, camera setting, light setting, and OpenGL/CUDA interop. Since we started completely from scratch, it took more than what we expected to finish the preparation, as 3D graphics applicaiton always tends to be complicated. A number of extra third-party libraries have been used for the starting framework: </br>
 		</p>
-		<img src="images/rasterization_scene_example.jpg" style="text-align:middle;" width="100%" height="100%"> </img>
+&nbsp&nbsp GLFW: context and input management</br>
+&nbsp&nbsp Assimp: model importing</br>
+&nbsp&nbsp SOIL: image/texture loading</br>
+&nbsp&nbsp GLM: 3D math library on CPU</br>
+		</p>
+		We’ve also found several benchmarks including the famous Sponza and San Miguel scene to test future results. Here is a comprehensive benchmark resources website:</br>
+		</p>
+		&nbsp&nbsp http://graphics.cs.williams.edu/data/meshes.xml
+		</p>
+		<h3>Scene Voxelization via Hardware Rasterizer</h3>
+		<p>The first step of the voxel cone tracing based global illumination (VXGI) is to voxelize the scene in order to simplify the geometry representation. We have implemented an efficient voxelization procedure utilizing hardware rasterizer. The key is to ensure every triangle to be rasterized. This is done by first projecting every triangle along its dominant axis among its local x/y/z axis. In this way, every triangle will “face” the camera after the projection. Second, every triangle is rasterized by conservative rasterization, which guarantee a fragment to be generated as long as the triangle overlaps the area of fragment. With an orthographic camera and depth test disabled, we could efficiently voxelize the whole scene in one pass. Each voxel fragment then can store the “aggregate” surface information including (locally illuminated) color and normal distribution.</br>
+		</p>
+		<h3>Sparse Octree Construction</h3>
+		<p>
+		The naïve voxelized scene can still take too much memory. Imagine a 512x512x512 3d texture with each voxel 4 byte. This could easily take 512 MB, not to say we need a lot more other information. Therefore, a much more compact hierarchical scene representation named sparse octree, as described in the original paper, is preferred. In order to better understand the method, we have prototyped a sequential version of sparse octree construction operation, and we are migrating the sequential version to GPU. We would prefer using CUDA to implement the structure instead of OpenGL because CUDA provides a more natural interface for non-graphics tree algorithm (although eventually we need to render the scene based on the structure). The communication between two APIs is fast thanks to CUDA/OpenGL interoperability.</br>
+		</p>
+		<h3>Cone tracing on Sparse Octree</h3>
+		</p>
+		As the final part of computing global illumination, each visible surface fragment sends out several cones that approximately cover the surface hemisphere to traverse the sparse octree, which can be seen as a simplified and accelerated version of raytracing. We are still in the midway of figuring out the exact parallel traverse solution at this point. One issue we expect to encounter is load unbalancing since each cone will intersect with the different part of the tree hierarchy and may end up spending different amount of time. We plan to first not to implement the full version, but the ambient occlusion as it is simpler than global illumination, but still represents the spatial relationship between geometries.
+		</p>
+		<h2>REVISED GOALS and DELIVERABLES</h2>
+		<p>We are slightly behind our original plan as we should obtain a preliminary version of cone tracing by the end of last week. The first reason is that we have spent more time on environment setup, and the second reason is that we are slightly unclear on how to perform cone tracing on this special data structure in parallel.
+		</p><p>
+		In our original proposal, we planned to support both Windows and Linux. The work on compatibility turned out be tedious and is not really related to the topic. Therefore we have decided to give up supporting Linux.</p>
+		We are still confident that we could finish the real-time global illumination solution that could support large scene on time. However, we would like to put support for dynamic objects as an optional feature.
+		</p><p>
 		
-		<h3>GOALS and DELIVERABLES</h3>
-		<p>We are a little behind our plan right now because the some parts that are not described in the paper is more complicated than what we thought at first. We haven't started the voxel cone tracing right now. Never the less, we still achieved our goal to render a voxelized scene.
-		</p><p>
-		For next three weeks, we plan to implement a light kernel structure and voxel cone tracing in one and a half week. Then, we will debug, optimize, create a real-time interactive demo for final presentation. We may put dynamic lights optional right now.
-		</p><p>
-		We still believe we can have a real-time rendering application that supports limited global illumination on large scenes.
-		</p><p>
-		
-		<h3>SCHEDULE</h3>
+		<h2>REVISED SCHEDULE</h2>
 		<ul style="list-style-type:disc">
-			<li><strong>Nov.22 - Nov.26</strong></br>
-				&nbsp&nbspUpdate voxel cone tracing; Add support to dynamic objects and lights.</br>
-
-&nbsp&nbsp Parallel octree construction with CUDA.</br>
-&nbsp&nbsp Lights info count, save, pass, combine on the octree.</br>
-&nbsp&nbsp Dynamic objects support.</br>
-
-&nbsp&nbsp Approximate Voxel Cone Tracing.</br>
-&nbsp&nbsp Ambient Occlusion.</br>
-&nbsp&nbsp Capturing Illumination.</br>
-
-
-&nbsp&nbsp Debug and Optimize.</br>
-&nbsp&nbsp Create an interactive demo.</br>
-&nbsp&nbsp Write final Report and preapre for presentation.</br>
-				
+			<li><strong>Nov.22 - Nov.24</strong></br>
+			&nbsp&nbsp Parallel octree construction on CUDA.</br>
+			&nbsp&nbsp Lights information storing and filtering on sparse octree.</br>			
 			</li>
-			<li><strong>Nov.27 - Dec.3</strong></br>
-				&nbsp&nbsp&nbsp&nbsp&nbspDebug and Optimize.</br> -> Expect to have a functional version.
+			<li><strong>Nov.25 - Nov.27</strong></br>
+			&nbsp&nbsp Compute ambient occlusion via parallel cone tracing.</br>
 			</li>
-			<li><strong>Dec.4 - Dec.10</strong></br>
-				&nbsp&nbsp&nbsp&nbsp&nbspCreate an interactive demo. Debug and Optimize.</br> -> Expect to have a complete version.
+			<li><strong>Nov.28 - Nov.30</strong></br>
+			&nbsp&nbsp Compute global illuminaiton via parallel cone tracing.</br>
 			</li>
-			<li><strong>Dec.11 - Dec.13</strong> &nbsp&nbsp&nbspWrite final Report and preapre for presentation.</li>
+			<li><strong>Dec.1 - Dec.3</strong></br>
+				&nbsp&nbsp Testing and Optimization.</br>
+			</li>
+			<li><strong>Dec.4 - Dec.6</strong></br>
+				&nbsp&nbsp Create demo and control for an interactive demo.</br>
+				&nbsp&nbsp (Optional) Dynamic objects support.</br>
+			</li>
+			<li><strong>Dec.7 - Dec.9</strong></br>
+			&nbsp&nbsp&nbsp Benchmark and collect data.</br>
+			</li>
+			<li><strong>Dec.10 - Dec.13</strong></br>
+			&nbsp&nbsp Write final report and prepare for poster session.</br>
+			</li>
 		</ul>
 
       </section>
